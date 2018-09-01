@@ -9,23 +9,32 @@ class GameForm extends React.Component {
     //
 
     // 生命周期学习
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        console.log('componentWillReceiveProps');
-        nextProps.game.length != 0 && this.setState({
+    // UNSAFE_componentWillReceiveProps(nextProps) {
+    //     console.log('componentWillReceiveProps');
+    //     nextProps.game.length != 0 && this.setState({
+    //         _id: nextProps.game[0]._id,
+    //         title: nextProps.game[0].title,
+    //         url: nextProps.game[0].url,
+    //     })
+    //     //因为是数组所以要加下标
+    // }
+    //从状态里面调整需要一个生命周期函数
+    //因为设置状态是异步的所以调用次生命周期函数当props发生变化时执行
+    static getDerivedStateFromProps(nextProps, prevState) {
+        console.log(nextProps, prevState);
+        var state = null
+        state = nextProps.game.length != 0 ? {
             _id: nextProps.game[0]._id,
             title: nextProps.game[0].title,
             url: nextProps.game[0].url,
-        })
-        //因为是数组所以要加下标
+        }:null;
+        return state;
     }
-    //从状态里面调整需要一个生命周期函数
-    //因为设置状态是异步的所以调用次生命周期函数当props发生变化时执行
+    // componentWillUpdate(nextProps, prevState) {
+    //     console.log(nextProps, prevState);
 
-    componentWillUpdate(nextProps, prevState) {
-        console.log(nextProps, prevState);
-        
-        console.log('组件实例化以后')
-    }
+    //     console.log('组件实例化以后')
+    // }
 
     constructor(props) {
         super(props)
